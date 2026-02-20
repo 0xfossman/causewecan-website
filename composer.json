@@ -6,7 +6,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.0",
         "laravel/socialite": "^5.15",
-        "socialiteproviders/discord": "^4.5",
+        "socialiteproviders/discord": "^4.2",
         "guzzlehttp/guzzle": "^7.8"
     },
     "require-dev": {

@@ -10,6 +10,15 @@ services:
       - mariadb
     volumes:
       - ./:/var/www/html
+    command: >
+      sh -c "if [ ! -f /var/www/html/vendor/autoload.php ]; then
+        COMPOSER_ALLOW_SUPERUSER=1 composer install --no-interaction --prefer-dist --optimize-autoloader;
+      fi;
+      if ! grep -Eq '^APP_KEY=base64:' /var/www/html/.env; then
+        php artisan key:generate --force;
+      fi;
+      unset APP_KEY;
+      exec /usr/bin/supervisord -c /etc/supervisord.conf"
 
   mariadb:
     image: mariadb:11

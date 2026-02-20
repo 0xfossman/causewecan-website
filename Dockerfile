@@ -1,6 +1,7 @@
 FROM php:8.3-fpm-alpine
 
 ENV TAR_OPTIONS="--no-same-owner --no-same-permissions"
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apk add --no-cache \
     nginx \
@@ -21,7 +22,7 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN cp .env.example .env || true
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader || true
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
