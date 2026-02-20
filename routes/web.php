@@ -16,6 +16,7 @@ Route::middleware('guest')->group(function (): void {
 Route::middleware('auth')->group(function (): void {
     Route::post('/logout', [DiscordAuthController::class, 'logout'])->name('logout');
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar/export.ics', [CalendarController::class, 'exportIcs'])->name('calendar.export.ics');
     Route::post('/calendar/events', [CalendarController::class, 'store'])
         ->middleware('calendar.admin')
         ->name('calendar.store');
