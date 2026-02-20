@@ -1,0 +1,4 @@
+#!/usr/bin/env php
+<?php
+
+echo "Laravel artisan placeholder. Install dependencies with composer install to use full artisan commands.".PHP_EOL;

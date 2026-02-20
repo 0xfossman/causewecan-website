@@ -1,0 +1,42 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: PHP syntax lint
+        run: composer lint:php-syntax
+
+      - name: PHP style lint (Pint)
+        run: composer lint:php-style
+
+      - name: YAML lint
+        run: composer lint:yaml
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install bot dependencies
+        working-directory: bot
+        run: npm install
+
+      - name: Lint bot JavaScript
+        working-directory: bot
+        run: npm run lint
