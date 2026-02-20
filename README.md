@@ -194,14 +194,14 @@ curl -H "Authorization: Bearer <STORMFORGE_API_KEY>" \
 The workflow `.github/workflows/docker-publish.yml` pushes image tags to:
 
 ```text
-ghcr.io/<owner>/<repo>:latest
+ghcr.io/<owner-lowercase>/causewecan-website:latest
 ```
 
 Manual local build/push example:
 
 ```bash
-docker build -t ghcr.io/<owner>/<repo>:latest .
-docker push ghcr.io/<owner>/<repo>:latest
+docker build -t ghcr.io/<owner-lowercase>/causewecan-website:latest .
+docker push ghcr.io/<owner-lowercase>/causewecan-website:latest
 ```
 
 ---
