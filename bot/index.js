@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { Client, GatewayIntentBits } from 'discord.js';
 import mysql from 'mysql2/promise';
 
-const required = ['DISCORD_BOT_TOKEN', 'DISCORD_GUILD_ID', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD'];
+const required = ['DISCORD_BOT_API_KEY', 'DISCORD_GUILD_ID', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD'];
 for (const key of required) {
   if (!process.env[key]) {
     throw new Error(`Missing required env variable: ${key}`);
@@ -75,4 +75,4 @@ client.once('ready', async () => {
   setInterval(syncGuildRoles, intervalMs);
 });
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_API_KEY);

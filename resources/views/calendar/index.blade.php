@@ -2,14 +2,10 @@
 
 @section('content')
 <div class="grid">
-    <div class="card">
+    <div class="card hero">
+        <span class="badge">Events</span>
         <h2>Interactive Calendar</h2>
-        <p>Click on an entry for details.</p>
-        <p class="muted">
-            <a href="{{ route('calendar.export.ics') }}">Kalender als .ics herunterladen</a>
-            ·
-            <a href="{{ str_replace('http://', 'webcal://', str_replace('https://', 'webcal://', route('calendar.export.ics'))) }}">Direkt in Kalender-App abonnieren</a>
-        </p>
+        <p class="muted">Click an entry for details and timing.</p>
         <div id="calendar"></div>
     </div>
 
@@ -39,6 +35,6 @@ const events = @json($events);
 const calendar = document.getElementById('calendar');
 calendar.innerHTML = events.length
  ? '<ul>' + events.map(e => `<li><strong>${new Date(e.start_at).toLocaleString('en-US')}</strong> — ${e.title} (${e.event_type})</li>`).join('') + '</ul>'
- : '<p>No events planned.</p>';
+ : '<p class="muted">No events planned.</p>';
 </script>
 @endsection

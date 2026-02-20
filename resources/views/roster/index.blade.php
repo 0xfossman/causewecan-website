@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card">
+<div class="card hero">
+    <span class="badge">Stormforge Sync</span>
     <h2>WoW Guild Roster</h2>
-    <p>Data source: Stormforge Armory/API.</p>
+    <p class="muted">Data source: Stormforge Armory/API.</p>
 </div>
 <div class="card">
     <table>
