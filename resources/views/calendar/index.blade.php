@@ -5,6 +5,11 @@
     <div class="card">
         <h2>Interactive Calendar</h2>
         <p>Click on an entry for details.</p>
+        <p class="muted">
+            <a href="{{ route('calendar.export.ics') }}">Kalender als .ics herunterladen</a>
+            ·
+            <a href="{{ str_replace('http://', 'webcal://', str_replace('https://', 'webcal://', route('calendar.export.ics'))) }}">Direkt in Kalender-App abonnieren</a>
+        </p>
         <div id="calendar"></div>
     </div>
 
