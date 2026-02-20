@@ -1,0 +1,71 @@
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NULL UNIQUE,
+  discord_id VARCHAR(255) NOT NULL UNIQUE,
+  avatar_url VARCHAR(255) NULL,
+  is_calendar_admin TINYINT(1) NOT NULL DEFAULT 0,
+  remember_token VARCHAR(100) NULL,
+  created_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS blog_posts (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  author_id BIGINT UNSIGNED NULL,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  excerpt TEXT NULL,
+  content LONGTEXT NOT NULL,
+  published_at TIMESTAMP NULL,
+  created_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL,
+  CONSTRAINT fk_blog_author FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS guild_events (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NULL,
+  event_type VARCHAR(50) NOT NULL,
+  start_at TIMESTAMP NOT NULL,
+  end_at TIMESTAMP NOT NULL,
+  created_by BIGINT UNSIGNED NOT NULL,
+  created_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL,
+  CONSTRAINT fk_event_creator FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS guild_members (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  class_name VARCHAR(255) NULL,
+  spec_name VARCHAR(255) NULL,
+  level INT UNSIGNED NOT NULL DEFAULT 1,
+  race VARCHAR(255) NULL,
+  rank_name VARCHAR(255) NULL,
+  avatar_url VARCHAR(255) NULL,
+  armory_url VARCHAR(255) NULL,
+  source_updated_at TIMESTAMP NULL,
+  created_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS discord_role_mappings (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  discord_role_id VARCHAR(255) NOT NULL UNIQUE,
+  role_name VARCHAR(255) NULL,
+  permission_key VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS discord_user_roles (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  discord_user_id VARCHAR(255) NOT NULL,
+  role_id VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NULL,
+  updated_at TIMESTAMP NULL,
+  UNIQUE KEY uq_discord_user_role (discord_user_id, role_id),
+  KEY idx_role_id (role_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
