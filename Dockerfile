@@ -1,11 +1,14 @@
 FROM php:8.3-fpm-alpine
 
+ENV TAR_OPTIONS="--no-same-owner --no-same-permissions"
+
 RUN apk add --no-cache \
     nginx \
     supervisor \
     bash \
     git \
     curl \
+    tar \
     icu-dev \
     libzip-dev \
     oniguruma-dev \
